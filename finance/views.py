@@ -62,8 +62,9 @@ def add_doxod(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         amount = request.POST.get('amount')
-        if name and amount:
-            Doxod.objects.create(name=name, amount=amount, user=request.user)
+        description = request.POST.get('description')
+        if name and amount and description:
+            Doxod.objects.create(name=name, amount=amount, description=description, user=request.user)
             return redirect('showd')
     return render(request, 'adddoxod.html')
 
@@ -73,6 +74,7 @@ def update_doxod(request, id):
     if request.method == 'POST':
         doxod.name = request.POST.get('name')
         doxod.amount = request.POST.get('amount')
+        doxod.description = request.POST.get('description')
         doxod.save()
         return redirect('showd')
     return render(request, 'update_doxod.html', {'doxod': doxod})
@@ -103,7 +105,8 @@ def add_rasxod(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         amount = request.POST.get('amount')
-        if name and amount:
-            Rasxod.objects.create(name=name, amount=amount, user=request.user)
+        description = request.POST.get('description')
+        if name and amount and description:
+            Rasxod.objects.create(name=name, amount=amount,description=description, user=request.user)
             return redirect('showr')
     return render(request, 'addrasxod.html')
