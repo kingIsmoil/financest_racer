@@ -83,3 +83,17 @@ def delete_doxod(request, id):
     doxod.delete()
     return redirect('showd')
 
+
+
+@login_required(login_url='log')
+def show_rasxod(request):
+    rasxod = Rasxod.objects.filter(user=request.user)
+    search = request.POST.get('search')
+    date = request.POST.get('date')
+
+    if search:
+        rasxod = rasxod.filter(name__icontains=search)
+    if date:
+        rasxod = rasxod.filter(created_at__date=date)
+
+    return render(request, 'showrasxod.html', {'r': rasxod})
