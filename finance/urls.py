@@ -10,4 +10,7 @@ urlpatterns = [
     path('showdoxod', views.show_doxod, name='showd'),
     path('addrasxod',views.add_rasxod, name='addr'),
     path('adddoxod0',views.add_doxod,name='addd'),
+    path('updaterasxod/<int:id>/', views.update_rasxod, name='updr'),
+    path('deleterasxod/<int:id>/', views.delete_rasxod , name='delr'),
+    
 ]
