@@ -110,3 +110,20 @@ def add_rasxod(request):
             Rasxod.objects.create(name=name, amount=amount,description=description, user=request.user)
             return redirect('showr')
     return render(request, 'addrasxod.html')
+
+@login_required(login_url='log')
+def update_rasxod(request, id):
+    rasxod = get_object_or_404(Rasxod, id=id, user=request.user)
+    if request.method == 'POST':
+        rasxod.name = request.POST.get('name')
+        rasxod.amount = request.POST.get('amount')
+        rasxod.save()
+        return redirect('showr')
+    return render(request, 'update_rasxod.html', {'rasxod': rasxod})
+
+
+@login_required(login_url='log')
+def delete_rasxod(request, id):
+    rasxod = get_object_or_404(Rasxod, id=id, user=request.user)
+    rasxod.delete()
+    return redirect('showr')
