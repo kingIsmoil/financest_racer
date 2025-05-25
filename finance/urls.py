@@ -8,5 +8,6 @@ urlpatterns = [
     path('logout', views.logout_view, name='lout'),
     path('showrasxod', views.show_rasxod, name='showr'),
     path('showdoxod', views.show_doxod, name='showd'),
-    path('addrasxod',views.add_rasxod, name='addr')
+    path('addrasxod',views.add_rasxod, name='addr'),
+    path('adddoxod0',views.add_doxod,name='addd'),
 ]
