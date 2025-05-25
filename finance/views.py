@@ -39,3 +39,61 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+@login_required(login_url="log")
+def get_dr(request):
+    return render(request, 'show.html')
+
+@login_required(login_url='log')
+def show_doxod(request):
+    doxod = Doxod.objects.filter(user=request.user)
+    search = request.POST.get('search')
+    date = request.POST.get('date')
+
+    if search:
+        doxod = doxod.filter(name__icontains=search)
+    if date:
+        doxod = doxod.filter(created_at__date=date)
+
+    return render(request, 'showdoxod.html', {'d': doxod})
+
+
+@login_required(login_url='log')
+def add_doxod(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        amount = request.POST.get('amount')
+        if name and amount:
+            Doxod.objects.create(name=name, amount=amount, user=request.user)
+            return redirect('showd')
+    return render(request, 'adddoxod.html')
+
+@login_required(login_url='log')
+def update_doxod(request, id):
+    doxod = get_object_or_404(Doxod, id=id, user=request.user)
+    if request.method == 'POST':
+        doxod.name = request.POST.get('name')
+        doxod.amount = request.POST.get('amount')
+        doxod.save()
+        return redirect('showd')
+    return render(request, 'update_doxod.html', {'doxod': doxod})
+
+@login_required(login_url='log')
+def delete_doxod(request, id):
+    doxod = get_object_or_404(Doxod, id=id, user=request.user)
+    doxod.delete()
+    return redirect('showd')
+
+
+
+@login_required(login_url='log')
+def show_rasxod(request):
+    rasxod = Rasxod.objects.filter(user=request.user)
+    search = request.POST.get('search')
+    date = request.POST.get('date')
+
+    if search:
+        rasxod = rasxod.filter(name__icontains=search)
+    if date:
+        rasxod = rasxod.filter(created_at__date=date)
+
+    return render(request, 'showrasxod.html', {'r': rasxod})
