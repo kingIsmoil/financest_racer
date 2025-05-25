@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ваши доходы</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'style.css' %}"></head>
+<body>
+    <div class="finance-container">
+        <div class="finance-card">
+            <div class="finance-header">
+                <h2 class="finance-title">Ваши rasxod</h2>
+                <a href="{% url 'addr' %}" class="add-btn">
+                    <span>+</span> Добавить rasxod
+                </a>
+            </div>
+            
+            <form method="post" class="filter-form">
+                {% csrf_token %}
+                <div class="filter-group">
+                    <input type="text" name="search" placeholder="Поиск по названию" class="filter-input">
+                    <input type="date" name="date" class="filter-date">
+                    <button type="submit" class="filter-btn">
+                        <span class="icon">🔍</span> Фильтр
+                    </button>
+                </div>
+            </form>
+            
+            <div class="transactions-list">
+                {% if r %}
+                    <div class="transaction-header">
+                        <span>Дата</span>
+                        <span>Название</span>
+                        <span>Сумма</span>
+                        <span>Действия</span>
+                    </div>
+                    {% for item in r %}
+                        <div class="transaction-item income-item">
+                            <span class="transaction-date">{{ item.created_at.date }}</span>
+                            <span class="transaction-name">{{ item.name }}</span>
+                            <span class="transaction-amount">{{ item.amount }} ₽</span>
+                            <div class="transaction-actions">
+                                <a href="{% url 'updr' item.id %}" class="action-btn edit-btn" title="Редактировать">✏️</a>
+                                <a href="{% url 'delr' item.id %}" class="action-btn delete-btn" title="Удалить">❌</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>Нет данных о rasxod</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="navigation">
+                <a href="{% url 'dr' %}" class="back-btn">← Назад в меню</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
