@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учёт финансов</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'style.css' %}"></head>
+<body></head>
+<body>
+    <div class="menu-container">
+        <div class="menu-card">
+            <h2 class="menu-title">Управление финансами</h2>
+            <div class="menu-items">
+                <a href="{% url 'showd' %}" class="menu-btn income-btn">
+                    <span class="btn-icon">💰</span>
+                    <span>Доходы</span>
+                </a>
+                <a href="{% url 'showr' %}" class="menu-btn expense-btn">
+                    <span class="btn-icon">💸</span>
+                    <span>Расходы</span>
+                </a>
+                <a href="{% url 'lout' %}" class="menu-btn logout-btn">
+                    <span class="btn-icon">🚪</span>
+                    <span>Выход</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
