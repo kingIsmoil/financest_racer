@@ -97,3 +97,13 @@ def show_rasxod(request):
         rasxod = rasxod.filter(created_at__date=date)
 
     return render(request, 'showrasxod.html', {'r': rasxod})
+
+@login_required(login_url='log')
+def add_rasxod(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        amount = request.POST.get('amount')
+        if name and amount:
+            Rasxod.objects.create(name=name, amount=amount, user=request.user)
+            return redirect('showr')
+    return render(request, 'addrasxod.html')
